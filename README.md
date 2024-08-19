@@ -1,3 +1,8 @@
 # Naporta-Mobile
 Aplicativo para apresentação de cadeira Multiplataforma
-# BAIDU
+
+
+
+
+
+npx create-expo-app NaPorta --template expo-template-tabs
