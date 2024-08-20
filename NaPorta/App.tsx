@@ -4,6 +4,7 @@ import AppLoading from 'expo-app-loading';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { ThemeProvider } from 'styled-components/native';
+import { SignIn } from "./src/screens/SignIN"
 
 import theme from './src/theme';
 
@@ -20,6 +21,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <View style={styles.container}>
         <Text style={styles.text}>Hello, World!</Text>
+        <SignIn></SignIn>
         <StatusBar style='auto' />
       </View>
     </ThemeProvider>
