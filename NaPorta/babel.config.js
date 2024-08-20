@@ -1,6 +1,23 @@
-module.exports = function(api) {
+const { Extension } = require('typescript');
+
+module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo']
+    presets: ['babel-preset-expo'],
+    plugins: [
+      'react-native-reanimated/plugin',
+      [
+        'module-resolver',
+        {
+          root: ['./src'],
+          extensions: ['.ts', '.tsx', '.js', '.json'],
+          alias: {
+            '@components': './src/components',
+            '@screens': './src/screens',
+            '@assets': './src/assets',
+          },
+        },
+      ],
+    ],
   };
 };
