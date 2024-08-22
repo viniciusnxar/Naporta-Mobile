@@ -1,10 +1,10 @@
 import React from "react";
-import {Container} from './styled'
+import {Container} from './styles'
 
 export function SignIn(){
     return(
         <Container>
             
-        </Container>
+        </Container> 
     );
 }
