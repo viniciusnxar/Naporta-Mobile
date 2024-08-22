@@ -19,11 +19,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <View style={styles.container}>
-        <Text style={styles.text}>Hello, World!</Text>
-        <SignIn></SignIn>
-        <StatusBar style='auto' />
-      </View>
+      <SignIn />
     </ThemeProvider>
   );
 }
