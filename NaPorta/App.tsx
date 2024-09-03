@@ -6,6 +6,7 @@ import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { ThemeProvider } from 'styled-components/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SignIn } from "./src/screens/SignIN"
+import {AuthProvider} from '@hooks/auth'
 
 import theme from './src/theme';
 
@@ -22,7 +23,9 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <StatusBar style='light' translucent backgroundColor='transparent'/>
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
