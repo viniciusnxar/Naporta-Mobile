@@ -12,3 +12,4 @@ yarn add styled-components (components estilizados)
 yarn add @types/styled-components-react-native -D (Para utilizar o syled components tipado)
 npx expo install expo-linear-gradient
 npm install react-native-gesture-handler
+yarn add react-native-iphone-x-helper
