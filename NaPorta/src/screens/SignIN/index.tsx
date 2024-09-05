@@ -19,7 +19,7 @@ import { Button } from '@src/components/Button';
 export function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn, isLoggin } = useAuth();
+  const { signIn, isLogging } = useAuth();
 
   function handleSignIn() {
     signIn(email, password);
@@ -56,7 +56,7 @@ export function SignIn() {
             title='Entrar'
             type='secondary'
             onPress={handleSignIn}
-            isLoading={isLoggin}
+            isLoading={isLogging}
           />
         </Content>
       </KeyboardAvoidingView>
