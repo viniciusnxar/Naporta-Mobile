@@ -1,42 +1,80 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Alert } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import React, {
+    createContext,
+    useContext,
+    ReactNode,
+    useState,
+    useEffect
+  } from 'react';
+  import { Alert } from 'react-native';
+  import auth from '@react-native-firebase/auth';
+  import firestore from '@react-native-firebase/firestore';
+  import AsyncStorage from '@react-native-async-storage/async-storage';
+  
+  type User = {
+    id: string;
+    name: string;
+    isAdmin: boolean;
+  }
+  
+  type AuthContextData = {
+    signIn: (email: string, password: string) => Promise<void>;
+    signOut: () => Promise<void>;
+    forgotPassword: (email: string) => Promise<void>;
+    isLogging: boolean;
+    user: User | null;
+  }
+  
+  type AuthProviderProps = {
+    children: ReactNode;
+  }
+  
+  const USER_COLLECTION = '@gopizza:users';
+  
+  export const AuthContext = createContext({} as AuthContextData);
 
-type AuthContextData = {
-  signIn: (email: string, password: string) => Promise<void>;
-  isLoggin: boolean;
-};
-
-type AuthProviderProps = {
-  children: ReactNode;
-};
-
-export const AuthContext = createContext({} as AuthContextData);
-
-function AuthProvider({ children }: AuthProviderProps) {
-  const [isLoggin, setIsLoggin] = useState(false);
-
-  async function signIn(email: string, password: string) {
-    if (!email || !password) {
-      return Alert.alert('Login', 'Informe um email e senha');
-    }
-
-    setIsLoggin(true);
-
-    try {
-      const account = await auth().signInWithEmailAndPassword(email, password);
-      console.log(account);
-    } catch (error: any) {
-      const { code } = error;
-
-      if (code === 'auth/user-not-found' || code === 'auth/wrong-password') {
-        return Alert.alert('Login', 'Email e/ou senha inválidos');
-      } else {
-        return Alert.alert('Login', 'Não foi possível realizar o login');
+  function AuthProvider({ children }: AuthProviderProps) {
+    const [user, setUser] = useState<User | null>(null);
+    const [isLogging, setIsLogging] = useState(false);
+  
+    async function signIn(email: string, password: string) {
+      if (!email || !password) {
+        return Alert.alert('Login', 'Informe o e-mail e a senha.');
       }
-    } finally {
-      setIsLoggin(false);
-    }
+  
+      setIsLogging(true);
+
+    auth()
+    auth()
+    .signInWithEmailAndPassword(email, password)
+    .then(account => {
+      firestore()
+        .collection('users')
+        .doc(account.user.uid)
+        .get()
+        .then(async (profile) => {
+            const { name, isAdmin } = profile.data() as User;
+
+            if (profile.exists) {
+              const userData = {
+                id: account.user.uid,
+                name,
+                isAdmin
+              };
+
+              await AsyncStorage.setItem(USER_COLLECTION, JSON.stringify(userData));
+              setUser(userData);
+            }
+      })
+      .catch((error) => {
+        const { code } = error;
+
+        if (code === 'auth/user-not-foud' || code === 'auth/worng-password') {
+          return Alert.alert('login', 'Email e/ou senha invalida');
+        } else {
+          return Alert.alert('login', 'Não foi possivel realizar o login');
+        }
+      })
+      .finally(() => setIsLogging(false));
   }
 
   return (
