@@ -1,43 +1,65 @@
-import React from "react";
-import {KeyboardAvoidingView, Platform} from 'react-native'
-import brandImg from '@assets/brand.png';
-import {Container, Content, Title, Brand, ForgotPasswordButton, ForgotPasswordLabel} from './styles'
+import React, { useState } from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import { Input } from "@src/components/Input";
-import { Button } from "@src/components/Button";
+import { useAuth } from '@src/hooks/auth';
 
-export function SignIn(){
-    return(
-        <Container>
-            <KeyboardAvoidingView behavior={Platform.IOS === 'ios' ? 'padding' : undefined}>
-                <Content>
-                    <Brand source={brandImg} />
-                    <Title>Login</Title>
-                    <Input
-                        placeholder="E-mail"
-                        type="secondary"
-                        autoCorrect={false}
-                        autoCapitalize="none"
-                    />
+import brandImg from '@src/assets/brand.png';
+import {
+  Container,
+  Content,
+  Title,
+  Brand,
+  ForgotPasswordButton,
+  ForgotPasswordLabel,
+} from './styles';
 
-                    <Input
-                        placeholder="Senha"
-                        type="secondary"
-                        secureTextEntry
-                    />
+import { Input } from '@src/components/Input';
+import { Button } from '@src/components/Button';
 
-                    <ForgotPasswordButton>
-                        <ForgotPasswordLabel>
-                            Esqueci minha senha
-                        </ForgotPasswordLabel>
-                    </ForgotPasswordButton>
+export function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { signIn, isLoggin } = useAuth();
 
-                    <Button 
-                        title="Entrar"
-                        type="secondary"
-                    />
-                </Content>
-            </KeyboardAvoidingView>
-        </Container> 
-    );
+  function handleSignIn() {
+    signIn(email, password);
+  }
+
+  return (
+    <Container>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <Content>
+          <Brand source={brandImg} />
+          <Title>Login</Title>
+          <Input
+            placeholder='E-mail'
+            type='secondary'
+            autoCorrect={false}
+            autoCapitalize='none'
+            onChangeText={setEmail}
+          />
+
+          <Input
+            placeholder='Senha'
+            type='secondary'
+            secureTextEntry
+            onChangeText={setPassword}
+          />
+
+          <ForgotPasswordButton>
+            <ForgotPasswordLabel>Esqueci minha senha</ForgotPasswordLabel>
+          </ForgotPasswordButton>
+
+          <Button
+            title='Entrar'
+            type='secondary'
+            onPress={handleSignIn}
+            isLoading={isLoggin}
+          />
+        </Content>
+      </KeyboardAvoidingView>
+    </Container>
+  );
 }
