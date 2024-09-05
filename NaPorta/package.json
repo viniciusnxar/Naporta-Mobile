@@ -11,6 +11,8 @@
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.3",
     "@expo/metro-runtime": "~3.2.3",
+    "@react-native-firebase/app": "^20.4.0",
+    "@react-native-firebase/auth": "^20.4.0",
     "@types/react": "~18.2.79",
     "expo": "~51.0.28",
     "expo-app-loading": "^2.1.1",
