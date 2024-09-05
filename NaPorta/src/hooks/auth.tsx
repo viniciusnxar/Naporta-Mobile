@@ -28,7 +28,7 @@ import React, {
     children: ReactNode;
   }
   
-  const USER_COLLECTION = '@gopizza:users';
+  const USER_COLLECTION = '@Naporta-mobile:users';
   
   export const AuthContext = createContext({} as AuthContextData);
 
@@ -43,7 +43,6 @@ import React, {
   
       setIsLogging(true);
 
-    auth()
     auth()
     .signInWithEmailAndPassword(email, password)
     .then(account => {
@@ -82,6 +81,7 @@ import React, {
       value={{
         signIn,
         isLoggin,
+        user,
       }}
     >
       {children}
