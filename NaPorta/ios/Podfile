@@ -49,6 +49,12 @@ target 'NaPorta' do
     :privacy_file_aggregation_enabled => podfile_properties['apple.privacyManifestAggregationEnabled'] != 'false',
   )
 
+  target 'app' do
+    # ...
+    pod 'RNFBFirestore', :path => '../node_modules/@react-native-firebase/firestore'
+  end
+
+
   post_install do |installer|
     react_native_post_install(
       installer,

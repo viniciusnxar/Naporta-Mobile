@@ -28,7 +28,7 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-const USER_COLLECTION = '@Naporta-mobile:users';
+const USER_COLLECTION = '@NaportamMobile:users';
 
 export const AuthContext = createContext({} as AuthContextData);
 
