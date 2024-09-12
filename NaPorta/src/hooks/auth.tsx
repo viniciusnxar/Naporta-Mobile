@@ -19,6 +19,7 @@ type User = {
 type AuthContextData = {
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
   isLogging: boolean;
   user: User | null;
 };
@@ -27,7 +28,7 @@ type AuthProviderProps = {
   children: ReactNode;
 };
 
-const USER_COLLECTION = '@gopizza:users';
+const USER_COLLECTION = '@Naporta-mobile:users';
 
 export const AuthContext = createContext({} as AuthContextData);
 
@@ -84,6 +85,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       })
       .finally(() => setIsLogging(false));
   }
+
   async function loadUserStorageData() {
     setIsLogging(true);
 
@@ -104,6 +106,27 @@ function AuthProvider({ children }: AuthProviderProps) {
     setUser(null);
   }
 
+  async function forgotPassword(email: string) {
+    if (!email) {
+      return Alert.alert('Redefinir Senha', 'Informe o e-mail.');
+    }
+
+    auth()
+      .sendPasswordResetEmail(email)
+      .then(() =>
+        Alert.alert(
+          'Redefinir Senha',
+          'Enviamos um link no seu e-mail para você redefinir sua senha.'
+        )
+      )
+      .catch(() =>
+        Alert.alert(
+          'Redefinir Senha',
+          'Não foi possível enviar o e-mail para redefinição da senha.'
+        )
+      );
+  }
+
   useEffect(() => {
     loadUserStorageData();
   }, []);
@@ -111,10 +134,11 @@ function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider
       value={{
-        signIn,
-        isLogging,
         user,
+        signIn,
         signOut,
+        isLogging,
+        forgotPassword,
       }}
     >
       {children}
