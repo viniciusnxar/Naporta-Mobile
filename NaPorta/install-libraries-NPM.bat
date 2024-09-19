@@ -9,6 +9,7 @@ npm i react-native-gesture-handler --force
 npm i @react-native-firebase/app --force
 npm i @react-native-firebase/firestore --force
 npm i @react-native-firebase/auth --force
+npx expo install expo-image-picker
 
 echo Instalação concluida!
 pause
