@@ -1,44 +1,19 @@
 import React from 'react';
-import { TouchableOpacityProps } from 'react-native';
 
-import {
-  Container,
-  Image,
-  Name,
-  Description,
-  StatusContainer,
-  StatusLabel,
-  StatusTypesProps,
-} from '@src/components/Photo/styles';
+import { Image, Placeholder, PlaceholderTitle } from './styles';
 
-export type OrderProps = {
-  id: string;
-  pizza: string;
-  image: string;
-  status: StatusTypesProps;
-  table_number: string;
-  quantity: string;
+type Props = {
+  uri: string | null;
 };
 
-type Props = TouchableOpacityProps & {
-  index: number;
-  data: OrderProps;
-};
+export function Photo({ uri }: Props) {
+  if (uri) {
+    return <Image source={{ uri }} />;
+  }
 
-export function OrderCard({ index, data, ...rest }: Props) {
   return (
-    <Container index={index} {...rest}>
-      <Image source={{ uri: data.image }} />
-
-      <Name>4 Queijos</Name>
-
-      <Description>
-        Mesa {data.table_number} - Qnt: {data.quantity}
-      </Description>
-
-      <StatusContainer status={data.status}>
-        <StatusLabel status={data.status}>{data.status}</StatusLabel>
-      </StatusContainer>
-    </Container>
+    <Placeholder>
+      <PlaceholderTitle>Nenhuma foto{'\n'}carregada</PlaceholderTitle>
+    </Placeholder>
   );
 }

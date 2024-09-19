@@ -5,10 +5,11 @@
     "baseUrl": "./",
     "paths": {
       "@src/*": ["./src/*"],
-      "@screens/*": ["./screens/*"],
-      "@components/*": ["./components/*"],
-      "@assets/*": ["./assets/*"],
-      "@hooks/*": ["./hooks/*"]
+      "@components/*": ["./src/components/*"],
+      "@screens/*": ["./src/screens/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
