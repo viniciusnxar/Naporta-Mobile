@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, TouchableOpacity } from 'react-native';
-import { Photo } from '@src/components/Photo';
+import { Platform, TouchableOpacity, ScrollView } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
+
 import { ButtonBack } from '@src/components/ButtonBack';
 import { InputPrice } from '@src/components/inputPrice';
-import * as ImagePicker from 'expo-image-picker';
+import { Button } from '@src/components/Button';
+import { Input } from '@src/components/Input';
+import { Photo } from '@components/Photo';
 
 import {
   Container,
@@ -12,9 +15,22 @@ import {
   DeleteLabel,
   Upload,
   PickImageButton,
+  Form,
+  Label,
+  InputGroup,
+  InputGroupHeader,
+  MaxCharacters,
 } from './styles';
+
 export function Product() {
   const [image, setImage] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [priceSizeP, setPriceSizeP] = useState('');
+  const [priceSizeM, setPriceSizeM] = useState('');
+  const [priceSizeG, setPriceSizeG] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [photoPath, setPhotoPath] = useState('');
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -25,7 +41,7 @@ export function Product() {
         aspect: [4, 4],
       });
 
-      if (!result.cancelled) {
+      if (!result.canceled) {
         setImage(result.uri);
       }
     }
@@ -33,24 +49,66 @@ export function Product() {
 
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <Header>
-        <ButtonBack />
-        <Title> Cadastrar </Title>
-        <TouchableOpacity>
-          <DeleteLabel> Deletar </DeleteLabel>
-        </TouchableOpacity>
-      </Header>
-      <Upload>
-        <Photo uri='' />
-        <PickImageButton
-          title='Carregar'
-          type='secondary'
-          onPress={handlePickerImage}
-        />
-      </Upload>
-      <InputPrice size='P' />
-      <InputPrice size='M' />
-      <InputPrice size='G' />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header>
+          <ButtonBack />
+          <Title> Cadastrar </Title>
+          <TouchableOpacity>
+            <DeleteLabel> Deletar </DeleteLabel>
+          </TouchableOpacity>
+        </Header>
+        <Upload>
+          <Photo uri='' />
+          <PickImageButton
+            title='Carregar'
+            type='secondary'
+            onPress={handlePickerImage}
+          />
+        </Upload>
+        <Form>
+          <InputGroup>
+            <Label>Nome</Label>
+            <Input />
+          </InputGroup>
+
+          <InputGroup>
+            <InputGroupHeader>
+              <Label>Descrição</Label>
+              <MaxCharacters>0 de 60 caracteres</MaxCharacters>
+            </InputGroupHeader>
+            <Input
+              multiline
+              maxLength={60}
+              style={{ height: 80 }}
+              onChangeText={setDescription}
+              value={description}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Label>Tamanhos e preços</Label>
+
+            <InputPrice
+              size='P'
+              onChangeText={setPriceSizeP}
+              value={priceSizeP}
+            />
+
+            <InputPrice
+              size='M'
+              onChangeText={setPriceSizeM}
+              value={priceSizeM}
+            />
+
+            <InputPrice
+              size='G'
+              onChangeText={setPriceSizeG}
+              value={priceSizeG}
+            />
+          </InputGroup>
+
+          <Button title='Cadastrar Pizza' isLoading={isLoading} />
+        </Form>
+      </ScrollView>
     </Container>
   );
 }
