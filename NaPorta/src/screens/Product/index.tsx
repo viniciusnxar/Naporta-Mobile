@@ -46,7 +46,22 @@ export function Product() {
       }
     }
   }
+  async function handleAdd() {
+    if (!name.trim()) {
+      return Alert.alert('Cadastro', 'Informe o nome da pizza.');
+    }
 
+    if (!description.trim()) {
+      return Alert.alert('Cadastro', 'Informe a descrição da pizza.');
+    }
+
+    if (!image) {
+      return Alert.alert('Cadastro', 'Selecione a imagem da pizza.');
+    }
+
+    if (!priceSizeP || !priceSizeM || !priceSizeG) {
+      return Alert.alert('Cadastro', 'Informe o preço de todos os tamanhos da pizza.');
+    }
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
