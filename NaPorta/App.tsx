@@ -5,8 +5,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { ThemeProvider } from 'styled-components/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Product } from './src/screens/Product';
 import { AuthProvider } from '@src/hooks/auth';
+
+import { Product } from '@src/screens/Product';
 
 import theme from '@src/theme';
 
@@ -19,6 +20,7 @@ export default function App() {
     return <AppLoading />;
   }
 
+  //Tela Product
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
