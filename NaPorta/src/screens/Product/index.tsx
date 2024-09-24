@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, TouchableOpacity, ScrollView } from 'react-native';
+import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 import { ButtonBack } from '@src/components/ButtonBack';
@@ -46,7 +46,7 @@ export function Product() {
       }
     }
   }
-
+  
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
