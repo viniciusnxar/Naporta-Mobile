@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  Platform,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+  View,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-
-import { ButtonBack } from '@src/components/ButtonBack';
-import { InputPrice } from '@src/components/inputPrice';
-import { Button } from '@src/components/Button';
-import { Input } from '@src/components/Input';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { ProductNavigationProps } from '@src/@types/navigation';
+import { ButtonBack } from '@components/ButtonBack';
+import { Button } from '@components/Button';
+import { Input } from '@components/Input';
 import { Photo } from '@components/Photo';
+import { InputPrice } from '@src/components/inputPrice';
+// import { ProductProps } from '@src/components/ProductCard';
 
 import {
   Container,
@@ -60,8 +70,42 @@ export function Product() {
     }
 
     if (!priceSizeP || !priceSizeM || !priceSizeG) {
-      return Alert.alert('Cadastro', 'Informe o preço de todos os tamanhos da pizza.');
+      return Alert.alert(
+        'Cadastro',
+        'Informe o preço de todos os tamanhos da pizza.'
+      );
     }
+    setIsLoading(true);
+
+    //conectar ao banco e puxar imagens de lá
+
+    const fileName = new Date().getTime();
+    const reference = storage().ref(`/pizzas/${fileName}.png`);
+
+    await reference.putFile(image);
+    const photo_url = await reference.getDownloadURL();
+
+    firestore()
+      .collection('pizzas')
+      .add({
+        name,
+        name_insensitive: name.toLowerCase().trim(),
+        description,
+        prices_sizes: {
+          p: priceSizeP,
+          m: priceSizeM,
+          g: priceSizeG,
+        },
+        photo_url,
+        photo_path: reference.fullPath,
+      })
+      .then(() => navigation.navigate('home'))
+      .catch(() => {
+        setIsLoading(false);
+        Alert.alert('Cadastro', 'Não foi possível cadastrar a pizza.');
+      });
+  }
+
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
