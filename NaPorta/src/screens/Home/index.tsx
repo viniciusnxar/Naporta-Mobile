@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Alert, FlatList } from 'react-native';
+import { Search } from '@src/components/Serach';
 import {
   Container,
   Header,
@@ -24,6 +25,7 @@ export function Home() {
           <MaterialIcons name='logout' color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
+      <Search onSearch={() => {}} onClear={() => {}} />
     </Container>
   );
 }
