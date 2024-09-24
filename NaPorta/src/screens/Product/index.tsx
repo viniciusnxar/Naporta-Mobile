@@ -46,7 +46,7 @@ export function Product() {
       }
     }
   }
-  
+
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -68,7 +68,7 @@ export function Product() {
         <Form>
           <InputGroup>
             <Label>Nome</Label>
-            <Input />
+            <Input onChangeText={setName} value={name} />
           </InputGroup>
 
           <InputGroup>

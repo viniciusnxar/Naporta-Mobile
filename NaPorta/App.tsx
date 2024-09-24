@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Product } from './src/screens/Product';
 import { AuthProvider } from '@src/hooks/auth';
 
-import theme from './src/theme';
+import theme from '@src/theme';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
