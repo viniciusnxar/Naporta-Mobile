@@ -6290,6 +6290,7 @@ nanoid@^3.1.23, nanoid@^3.3.7:
     "@react-native-firebase/auth" "^20.5.0"
     "@react-native-firebase/firestore" "^20.5.0"
     "@react-native-firebase/storage" "^20.5.0"
+    "@react-navigation/native" "^6.1.18"
     "@types/react" "~18.2.79"
     expo "~51.0.28"
     expo-app-loading "^2.1.1"
@@ -7016,6 +7017,11 @@ react-native-reanimated@^3.15.0:
     "@babel/preset-typescript" "^7.16.7"
     convert-source-map "^2.0.0"
     invariant "^2.2.4"
+
+react-native-status-bar-height@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.npmjs.org/react-native-status-bar-height/-/react-native-status-bar-height-2.6.0.tgz"
+  integrity sha512-z3SGLF0mHT+OlJDq7B7h/jXPjWcdBT3V14Le5L2PjntjjWM3+EJzq2BcXDwV+v67KFNJic5pgA26cCmseYek6w==
 
 react-native-web@~0.19.10:
   version "0.19.12"
