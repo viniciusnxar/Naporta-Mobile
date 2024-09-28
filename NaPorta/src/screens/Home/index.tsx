@@ -22,7 +22,7 @@ export function Home() {
           <GreetingText>Olá, Admin</GreetingText>
         </Greeting>
         <TouchableOpacity>
-          <MaterialIcons name='logout' color={COLORS.TITLE} size={24} />
+          <MaterialIcons name='logout' size={24} />
         </TouchableOpacity>
       </Header>
       <Search onSearch={() => {}} onClear={() => {}} />
