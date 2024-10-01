@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Alert, FlatList } from 'react-native';
 import { Search } from '@src/components/Serach';
+import { ProductCard } from '@src/components/ProductCard';
 import {
   Container,
   Header,
@@ -33,6 +34,15 @@ export function Home() {
           <Title>Cardápio</Title>
           <MenuItemsNumber>10 pizzas</MenuItemsNumber>
         </MenuHeader>
+        <ProductCard 
+          data={{
+            id: '1',
+            name: 'Pizza',
+            description: 'Ingredientes dessa pizza bla bla bla',
+            photo_url: 'https://github.com/rodrigorgtic.png'
+          }}
+        />
+
     </Container>
   );
 }
