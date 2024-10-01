@@ -20,7 +20,7 @@
     "@types/react": "~18.2.79",
     "expo": "~51.0.28",
     "expo-app-loading": "^2.1.1",
-    "expo-image-picker": "^15.0.7",
+    "expo-image-picker": "~15.0.7",
     "expo-linear-gradient": "~13.0.2",
     "expo-status-bar": "~1.12.1",
     "force": "^0.0.3",
