@@ -1,6 +1,7 @@
 @echo off
 echo Instalando dependencias npm...
 npm i expo 
+npm i expo-cli
 npm i react-native
 npm i @expo-google-fonts/roboto --force
 npm i expo-image-picker
