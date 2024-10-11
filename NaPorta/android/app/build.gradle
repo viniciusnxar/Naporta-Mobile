@@ -133,7 +133,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.gopizza"
+        applicationId "com.naporta"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -183,8 +183,15 @@ android {
         }
     }
 }
+plugins {
+    id("com.android.application")
+    id("com.google.gms.google-services")
+
+}
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+    implementation("com.google.firebase:firebase-analytics")
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

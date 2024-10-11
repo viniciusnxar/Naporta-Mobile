@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "1018296268336",
-    "project_id": "gopizza-9de8e",
-    "storage_bucket": "gopizza-9de8e.appspot.com"
+    "project_number": "55889757096",
+    "project_id": "naportamobile-5ab92",
+    "storage_bucket": "naportamobile-5ab92.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1018296268336:android:f27ff032a3b689768b9ff5",
+        "mobilesdk_app_id": "1:55889757096:android:7fa2c461562b460e34539d",
         "android_client_info": {
-          "package_name": "com.gopizza"
+          "package_name": "com.naporta"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1018296268336-erbq4mqa47s3gbecqthsc2s4ao6e0rsd.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCrD-pUlhvLTnXynhkWuIgihikX0aWXw8c"
+          "current_key": "AIzaSyBpNbKB-YzA-tEgZiOK_dJfdq2zdEjzuRA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1018296268336-erbq4mqa47s3gbecqthsc2s4ao6e0rsd.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
