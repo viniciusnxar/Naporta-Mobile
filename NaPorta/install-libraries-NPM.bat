@@ -14,6 +14,7 @@ npx expo install @react-native-firebase/storage
 npx expo install @react-navigation/native
 npx expo install expo-image-picker
 npx expo install expo-status-bar
+npx expo install react-native-gesture-handler
 
 echo Instalação concluida!
 pause
