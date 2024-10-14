@@ -1,18 +1,17 @@
 @echo off
 echo Instalando dependencias npm...
 npm i expo 
-npm i expo-cli
 npm i react-native
-npm i @expo-google-fonts/roboto --force
-npm i expo-image-picker
-npm i expo-app-loading --force
-npm i expo-linear-gradient --force
-npm i react-native-gesture-handler --force
-npm i @react-native-firebase/app --force
-npm i @react-native-firebase/firestore --force
-npm i @react-native-firebase/auth --force
-npm i @react-native-firebase/storage
-npm i @react-navigation/native
+npx expo install @expo-google-fonts/roboto --force
+npx expo install expo-image-picker
+npx expo install expo-app-loading --force
+npx expo install expo-linear-gradient --force
+npx expo install react-native-gesture-handler --force
+npx expo install @react-native-firebase/app --force
+npx expo install @react-native-firebase/firestore --force
+npx expo install @react-native-firebase/auth --force
+npx expo install @react-native-firebase/storage
+npx expo install @react-navigation/native
 npx expo install expo-image-picker
 
 echo Instalação concluida!
