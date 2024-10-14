@@ -13,6 +13,7 @@ npx expo install @react-native-firebase/auth --force
 npx expo install @react-native-firebase/storage
 npx expo install @react-navigation/native
 npx expo install expo-image-picker
+npx expo install expo-status-bar
 
 echo Instalação concluida!
 pause
