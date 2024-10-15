@@ -65,6 +65,10 @@ npx expo build:android
     /screens: Localiza as telas do aplicativo, com cada arquivo representando uma parte específica da interface do usuário, facilitando a navegação e manutenção do aplicativo.
     /theme: Contém definições de estilo, como cores e fontes, garantindo consistência visual e facilitando a implementação de alterações de estilo.
 
+## Documentaçao seguida:
+https://rnfirebase.io/firestore/usage
+https://docs.expo.dev/guides/local-app-development/
+
 ## Contribuição
 
 Contribuições são bem-vindas! Se você quiser sugerir melhorias ou encontrar bugs, sinta-se à vontade para abrir um issue ou enviar um pull request.
