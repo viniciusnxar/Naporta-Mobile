@@ -66,8 +66,8 @@ npx expo build:android
     /theme: Contém definições de estilo, como cores e fontes, garantindo consistência visual e facilitando a implementação de alterações de estilo.
 
 ## Documentaçao seguida:
-https://rnfirebase.io/firestore/usage
-https://docs.expo.dev/guides/local-app-development/
+[React Native Cloud Firestore](https://rnfirebase.io/firestore/usage)\
+[Expo Local app development](https://docs.expo.dev/guides/local-app-development/)
 
 ## Contribuição
 
