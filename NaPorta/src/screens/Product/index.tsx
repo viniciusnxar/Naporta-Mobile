@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'React';
 import {
   Platform,
   TouchableOpacity,
@@ -7,8 +7,8 @@ import {
   View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import firestore from '@react-native-firebase/firestore';
-import storage from '@react-native-firebase/storage';
+import firestore from 'firebase/firestore';
+import storage from 'firebase/storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { ProductNavigationProps } from '@src/@types/navigation';
 import { ButtonBack } from '@components/ButtonBack';
