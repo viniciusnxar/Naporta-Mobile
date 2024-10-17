@@ -1,10 +1,10 @@
-import React, { useEffect,useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity, Alert, FlatList } from 'react-native';
 import { Search } from '@src/components/Serach';
 import { ProductCard, ProductProps } from '@src/components/ProductCard';
-import {useTheme} from 'styled-components/native';
-import firestore from '@react-native-firebase/firestore';
+import { useTheme } from 'styled-components';
+import firestore from 'firebase/firestore';
 import {
   Container,
   Header,
@@ -13,14 +13,15 @@ import {
   GreetingText,
   MenuHeader,
   MenuItemsNumber,
-  Title
+  Title,
 } from './styles';
 
 import happyEmoji from '@src/assets/happy.png';
 import { BorderlessButton } from 'react-native-gesture-handler';
 
 export function Home() {
-
+  const [pizzas, setPizzas] = useState<ProductProps[]>([]);
+  const [search, setSearch] = useState('');
   const { COLORS } = useTheme();
 
   function fetchPizzas(value: string) {
@@ -32,22 +33,32 @@ export function Home() {
       .startAt(formattedValue)
       .endAt(`${formattedValue}\uf8ff`)
       .get()
-      .then(response => {
-        const data = response.docs.map(doc => {
+      .then((response) => {
+        const data = response.docs.map((doc) => {
           return {
             id: doc.id,
             ...doc.data(),
           };
         }) as ProductProps[];
 
-        console.log(data);
+        setPizzas(data);
       })
-      .catch(() => Alert.alert('Consulta', 'Não foi possível realizar a consulta'));
-    }
+      .catch(() =>
+        Alert.alert('Consulta', 'Não foi possível realizar a consulta')
+      );
+  }
+  function handleSearch() {
+    fetchPizzas(search);
+  }
 
-      useEffect(() => {
-        fetchPizzas('');
-      }, []);
+  function handleSearchClear() {
+    setSearch('');
+    fetchPizzas('');
+  }
+
+  useEffect(() => {
+    fetchPizzas('');
+  }, []);
 
   return (
     <Container>
@@ -60,20 +71,27 @@ export function Home() {
           <MaterialIcons name='logout' size={24} />
         </TouchableOpacity>
       </Header>
-      <Search onSearch={() => {}} onClear={() => {}} />
-        <MenuHeader>
-          <Title>Cardápio</Title>
-          <MenuItemsNumber>10 pizzas</MenuItemsNumber>
-        </MenuHeader>
-        <ProductCard 
-          data={{
-            id: '1',
-            name: 'Pizza',
-            description: 'Ingredientes dessa pizza bla bla bla',
-            photo_url: 'https://github.com/rodrigorgtic.png'
-          }}
-        />
-
+      <Search
+        onChangeText={setSearch}
+        value={search}
+        onSearch={handleSearch}
+        onClear={handleSearchClear}
+      />
+      <MenuHeader>
+        <Title>Cardápio</Title>
+        <MenuItemsNumber>10 pizzas</MenuItemsNumber>
+      </MenuHeader>
+      <FlatList
+        data={pizzas}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <ProductCard data={item} />}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingTop: 20,
+          paddingBottom: 125,
+          marginHorizontal: 24,
+        }}
+      />
     </Container>
   );
 }
