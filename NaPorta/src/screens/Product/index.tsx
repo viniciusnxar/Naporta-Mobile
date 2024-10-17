@@ -10,12 +10,15 @@ import * as ImagePicker from 'expo-image-picker';
 import firestore from 'firebase/firestore';
 import storage from 'firebase/storage';
 import { useRoute, useNavigation } from '@react-navigation/native';
+
 import { ProductNavigationProps } from '@src/@types/navigation';
+
 import { ButtonBack } from '@components/ButtonBack';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { Photo } from '@components/Photo';
 import { InputPrice } from '@src/components/inputPrice';
+
 // import { ProductProps } from '@src/components/ProductCard';
 
 import {
@@ -41,6 +44,10 @@ export function Product() {
   const [priceSizeG, setPriceSizeG] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [photoPath, setPhotoPath] = useState('');
+
+const navigation = useNavigation();
+const route = useRoute();
+const { id } = route.params as ProductNavigationProps;
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
