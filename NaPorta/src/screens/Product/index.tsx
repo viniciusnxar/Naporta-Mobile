@@ -167,7 +167,7 @@ export function Product() {
           <Title> Cadastrar </Title>
           {
             id ? (
-              <TouchableOpacity onPress={handleDelete}>
+              <TouchableOpacity onPress={handleDelete}> 
                 <DeleteLabel>Deletar</DeleteLabel>
               </TouchableOpacity>
             ) : (
