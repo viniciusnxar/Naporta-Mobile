@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 # Naporta-Mobile
 Aplicativo para apresentação de cadeira Multiplataforma
 =======
@@ -180,4 +179,3 @@ npx expo build:android
 ## Contribuição
 
 Contribuições são bem-vindas! Se você quiser sugerir melhorias ou encontrar bugs, sinta-se à vontade para abrir um issue ou enviar um pull request.
-
