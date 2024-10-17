@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'React';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Platform,
   TouchableOpacity,
@@ -9,7 +9,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import firestore from 'firebase/firestore';
 import storage from 'firebase/storage';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation,  useFocusEffect} from '@react-navigation/native';
 
 import { ProductNavigationProps } from '@src/@types/navigation';
 
@@ -126,7 +126,20 @@ export function Product() {
     navigation.goBack()
   }
 
-  useEffect(() => {
+  function handleDelete(){
+    firestore()
+    .collection('pizzas')
+    .doc(id)
+    .delete()
+    .then(() => {
+      storage()
+        .ref(photoPath)
+        .delete()
+        .then(() => navigation.navigate('home'));
+    });
+  }
+
+  useFocusEffect(() => {
     if (id) {
       firestore()
         .collection('pizzas')
@@ -154,7 +167,7 @@ export function Product() {
           <Title> Cadastrar </Title>
           {
             id ? (
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleDelete}>
                 <DeleteLabel>Deletar</DeleteLabel>
               </TouchableOpacity>
             ) : (
