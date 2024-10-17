@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'React';
 import {
   Platform,
   TouchableOpacity,
@@ -9,7 +9,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import firestore from 'firebase/firestore';
 import storage from 'firebase/storage';
-import { useRoute, useNavigation,  useFocusEffect} from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import { ProductNavigationProps } from '@src/@types/navigation';
 
@@ -122,24 +122,7 @@ export function Product() {
       });
   }
 
-  function handleGoBack(){
-    navigation.goBack()
-  }
-
-  function handleDelete(){
-    firestore()
-    .collection('pizzas')
-    .doc(id)
-    .delete()
-    .then(() => {
-      storage()
-        .ref(photoPath)
-        .delete()
-        .then(() => navigation.navigate('home'));
-    });
-  }
-
-  useFocusEffect(() => {
+  useEffect(() => {
     if (id) {
       firestore()
         .collection('pizzas')
@@ -163,28 +146,19 @@ export function Product() {
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header>
-          <ButtonBack onPress={handleGoBack} />
+          <ButtonBack />
           <Title> Cadastrar </Title>
-          {
-            id ? (
-              <TouchableOpacity onPress={handleDelete}>
-                <DeleteLabel>Deletar</DeleteLabel>
-              </TouchableOpacity>
-            ) : (
-              <View style={{ width: 20 }} />
-            )
-          }
-
+          <TouchableOpacity>
+            <DeleteLabel> Deletar </DeleteLabel>
+          </TouchableOpacity>
         </Header>
         <Upload>
           <Photo uri='' />
-          {!id && (
-            <PickImageButton
-              title="Carregar"
-              type="secondary"
-              onPress={handlePickerImage}
-            />
-          )} 
+          <PickImageButton
+            title='Carregar'
+            type='secondary'
+            onPress={handlePickerImage}
+          />
         </Upload>
         <Form>
           <InputGroup>
@@ -227,14 +201,7 @@ export function Product() {
             />
           </InputGroup>
 
-          !id && (
-              <Button
-                title="Cadastrar pizza"
-                isLoading={isLoading}
-                onPress={handleAdd}
-              />
-            )
-
+          <Button title='Cadastrar Pizza' isLoading={isLoading} />
         </Form>
       </ScrollView>
     </Container>
