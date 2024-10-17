@@ -122,6 +122,10 @@ export function Product() {
       });
   }
 
+  function handleGoBack(){
+    navigation.goBack()
+  }
+
   useEffect(() => {
     if (id) {
       firestore()
@@ -146,19 +150,28 @@ export function Product() {
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header>
-          <ButtonBack />
+          <ButtonBack onPress={handleGoBack} />
           <Title> Cadastrar </Title>
-          <TouchableOpacity>
-            <DeleteLabel> Deletar </DeleteLabel>
-          </TouchableOpacity>
+          {
+            id ? (
+              <TouchableOpacity>
+                <DeleteLabel>Deletar</DeleteLabel>
+              </TouchableOpacity>
+            ) : (
+              <View style={{ width: 20 }} />
+            )
+          }
+
         </Header>
         <Upload>
           <Photo uri='' />
-          <PickImageButton
-            title='Carregar'
-            type='secondary'
-            onPress={handlePickerImage}
-          />
+          {!id && (
+            <PickImageButton
+              title="Carregar"
+              type="secondary"
+              onPress={handlePickerImage}
+            />
+          )} 
         </Upload>
         <Form>
           <InputGroup>
@@ -201,7 +214,14 @@ export function Product() {
             />
           </InputGroup>
 
-          <Button title='Cadastrar Pizza' isLoading={isLoading} />
+          !id && (
+              <Button
+                title="Cadastrar pizza"
+                isLoading={isLoading}
+                onPress={handleAdd}
+              />
+            )
+
         </Form>
       </ScrollView>
     </Container>
