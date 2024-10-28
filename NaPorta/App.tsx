@@ -6,7 +6,6 @@ import { useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 import { ThemeProvider } from 'styled-components/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AuthProvider } from '@src/hooks/auth';
-import { Product } from '@src/screens/Product';
 import { Routes } from './src/routes';
 
 import theme from '@src/theme';
