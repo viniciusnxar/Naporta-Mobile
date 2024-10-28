@@ -2,9 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { TouchableOpacity, Alert, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components/native';
-import 'firebase/firestore';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-
+import { getFirestore, collection, query, orderBy, startAt, endAt, getDocs } from 'firebase/firestore'; // Importações do Firestore
 import happyEmoji from '@assets/happy.png';
 import { useAuth } from '@hooks/auth';
 import { Search } from '@components/Serach';
@@ -30,15 +29,21 @@ export function Home() {
   const navigation = useNavigation();
   const { user, signOut } = useAuth();
 
-  function fetchPizzas(value: string) {
-    const formattedValue = value.toLocaleLowerCase().trim();
+  const firestore = getFirestore(); // Inicializando o Firestore
 
-    firestore()
-      .collection('pizzas')
-      .orderBy('name_insensitive')
-      .startAt(formattedValue)
-      .endAt(`${formattedValue}\uf8ff`)
-      .get()
+  function fetchPizzas(value: string) {
+    const formattedValue = value.toLowerCase().trim();
+
+    // Cria a consulta no Firestore usando a sintaxe modular
+    const pizzasCollection = collection(firestore, 'pizzas');
+    const pizzasQuery = query(
+      pizzasCollection,
+      orderBy('name_insensitive'),
+      startAt(formattedValue),
+      endAt(`${formattedValue}\uf8ff`)
+    );
+
+    getDocs(pizzasQuery)
       .then((response) => {
         const data = response.docs.map((doc) => {
           return {
@@ -87,7 +92,7 @@ export function Home() {
         </Greeting>
 
         <TouchableOpacity onPress={signOut}>
-          <MaterialIcons name='logout' color={COLORS.TITLE} size={24} />
+          <MaterialIcons name="logout" color={COLORS.TITLE} size={24} />
         </TouchableOpacity>
       </Header>
 
@@ -119,8 +124,8 @@ export function Home() {
 
       {user?.isAdmin && (
         <NewProductButton
-          title='Cadastrar Pizza'
-          type='secondary'
+          title="Cadastrar Pizza"
+          type="secondary"
           onPress={handleAdd}
         />
       )}
