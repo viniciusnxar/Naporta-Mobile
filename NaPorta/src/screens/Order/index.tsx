@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { Container, Header } from './styles';
+import { Container, Header, Photo } from './styles';
 import { ButtonBack } from '@src/components/ButtonBack';
 
 export function Order() {
@@ -12,6 +12,7 @@ export function Order() {
           style={{ marginBottom: 108 }}
         ></ButtonBack>
       </Header>
+      <Photo source={{ uri: 'https://github.com/viniciusnxar' }}></Photo>
     </Container>
   );
 }
