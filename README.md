@@ -1,6 +1,7 @@
 # Naporta-Mobile
-Aplicativo para apresentação de cadeira Multiplataforma
-=======
+
+# Aplicativo para apresentação de cadeira Multiplataforma
+
 # NaPorta - Aplicativo de Delivery de Comida
 
 **NaPorta** é um aplicativo de delivery de comida online desenvolvido como parte do projeto aplicado em Front-end. Ele oferece uma plataforma simples e eficiente para conectar restaurantes e clientes, permitindo a visualização de cardápios, o gerenciamento de pedidos e o acompanhamento de entregas em tempo real.
@@ -25,147 +26,78 @@ Siga os passos abaixo para executar o projeto localmente:
 
 1. Clone o repositório:
 
-   
 > git clone [[https://github.com/viniciusnxar/naporta](https://github.com/viniciusnxar/NaPorta-Mobile](https://github.com/viniciusnxar/NaPorta-mobile))
 
 2. Instale as principais dependências:\
-`
-cd na-porta
-`\
-`
-npm install
-`\
-`
-yarn install
-`\
-`
-yarn add expo
-`\
-`
-npx expo prebuild
-`
-4. Instale as demais dependecias:
+   `cd na-porta`\
+   `npm install`\
+   `yarn install`\
+   `yarn add expo`\
+   `npx expo prebuild`\
+   `npm install dotenv --save`
+
+3. Instale as demais dependecias:
 
 ### Dependências Principais
+
+`npm i styled-components`
+
+### React
+
+`npm i @react-native-async-storage/async-storage `\
 `
-npm i styled-components
-`
-### React 
-`
-npm i @react-native-async-storage/async-storage 
-`\
-` 
-npm i @react-navigation/bottom-tabs 
-`\
-`
-npm i @react-navigation/native 
-`\
-`
-npm i @react-navigation/native-stack 
-`\
-`
-npm i react 
-`\
-`
-npm i react-dom 
-`\
-`
-npm i react-native 
-`\
-`
-npm i react-native-gesture-handler 
-`\
-`
-npm i react-native-iphone-x-helper 
-`\
-`
-npm i react-native-reanimated 
-`\
-`
-npm i react-native-safe-area-context 
-`\
-`
-npm i react-native-screens 
-`\
-`
-npm i react-native-web  
-`\
-`
-npm i react-native-status-bar-height
-`
+npm i @react-navigation/bottom-tabs `\
+`npm i @react-navigation/native `\
+`npm i @react-navigation/native-stack `\
+`npm i react `\
+`npm i react-dom `\
+`npm i react-native `\
+`npm i react-native-gesture-handler `\
+`npm i react-native-iphone-x-helper `\
+`npm i react-native-reanimated `\
+`npm i react-native-safe-area-context `\
+`npm i react-native-screens `\
+`npm i react-native-web  `\
+`npm i react-native-status-bar-height`
 
 ### Expo
-`
-npm i @expo-google-fonts/roboto
-`\
-`
-npm i expo-app-loading 
-`\
-`
-npm i expo-image-picker 
-`\
-`
-npm i expo-linear-gradient 
-`\
-`
-npm i expo-splash-screen 
-`\
-`
-npm i expo-status-bar 
-`
+
+`npm i @expo-google-fonts/roboto`\
+`npm i expo-app-loading `\
+`npm i expo-image-picker `\
+`npm i expo-linear-gradient `\
+`npm i expo-splash-screen `\
+`npm i expo-status-bar `
 
 ### Firebase
-`
-npm i firebase
-` \
-`
-npm i @firebase/app
-`\
-`
-npm i @firebase/app-types
-`\
-`
-npm i @firebase/storage
-`\
-`
-npm i @firebase/storage-types
-`\
-`
-npm i @firebase/auth
-`\
-`
-npm i @firebase/firestore
-`\
-`
-npm i @firebase/firestore-types
-`
+
+`npm i firebase`
+
+##### Dependencias adicionais (Não necessárias)
+
+`npm i @firebase/app`\
+`npm i @firebase/app-types`\
+`npm i @firebase/storage`\
+`npm i @firebase/storage-types`\
+`npm i @firebase/auth`\
+`npm i @firebase/firestore`\
+`npm i @firebase/firestore-types`
+
 ### Dependências de Desenvolvimento (devDependencies)
+
+`npm install --save-dev @babel/core `\
+`npm install --save-dev @types/react @types/react-native `\
+`npm install --save-dev @types/styled-components-react-native`\
 `
-npm install --save-dev @babel/core 
-`\
-`
-npm install --save-dev @types/react @types/react-native 
-`\
-`
-npm install --save-dev @types/styled-components-react-native
-`\
-` 
-npm install --save-dev babel-plugin-module-resolver 
-`\
-`
-npm install --save-dev typescript
-`\
-`
-yarn add react-native-dotenv
-`
+npm install --save-dev babel-plugin-module-resolver `\
+`npm install --save-dev typescript`\
+`yarn add react-native-dotenv`
 
 4. Execute o servidor de desenvolvimento:
-npx expo start
-npx expo build:android
+   npx expo start
+   npx expo build:android
 
 5. Abra o navegador e acesse http://localhost:3000.
-
-
 
 ## Estrutura do Projeto
 
