@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Platform,
   TouchableOpacity,
@@ -72,8 +72,14 @@ export function Product() {
   const [photoPath, setPhotoPath] = useState('');
 
   const navigation = useNavigation();
+
   const route = useRoute();
-  const { id } = route.params as ProductNavigationProps;
+  const { id } = (route.params as ProductNavigationProps) || {}; // Verifica se id está disponível
+  if (!id) {
+    // Tratar o caso de id indefinido, por exemplo, mostrar um aviso ou redirecionar
+    console.warn('ID não foi fornecido na navegação.');
+    return null;
+  }
 
   async function handlePickerImage() {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -152,24 +158,26 @@ export function Product() {
     });
   }
 
-  useFocusEffect(() => {
-    if (id) {
-      const docRef = doc(firestore, 'pizzas', id);
-      getDoc(docRef).then((docSnap) => {
-        if (docSnap.exists()) {
-          const product = docSnap.data() as PizzaResponse;
+  useFocusEffect(
+    useCallback(() => {
+      if (id) {
+        const docRef = doc(firestore, 'pizzas', id);
+        getDoc(docRef).then((docSnap) => {
+          if (docSnap.exists()) {
+            const product = docSnap.data() as PizzaResponse;
 
-          setName(product.name);
-          setImage(product.photo_url);
-          setDescription(product.description);
-          setPriceSizeP(product.prices_sizes.p);
-          setPriceSizeM(product.prices_sizes.m);
-          setPriceSizeG(product.prices_sizes.g);
-          setPhotoPath(product.photo_path);
-        }
-      });
-    }
-  }, [id]);
+            setName(product.name);
+            setImage(product.photo_url);
+            setDescription(product.description);
+            setPriceSizeP(product.prices_sizes.p);
+            setPriceSizeM(product.prices_sizes.m);
+            setPriceSizeG(product.prices_sizes.g);
+            setPhotoPath(product.photo_path);
+          }
+        });
+      }
+    }, [id]) // Dependência correta
+  );
 
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
