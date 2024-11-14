@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { TouchableOpacity, Alert, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components/native';
+
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { getFirestore, collection, query, orderBy, startAt, endAt, getDocs } from 'firebase/firestore'; // Importações do Firestore
 import happyEmoji from '@assets/happy.png';
