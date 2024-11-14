@@ -45,8 +45,7 @@ Siga os passos abaixo para executar o projeto localmente:
 ### React
 
 `npm i @react-native-async-storage/async-storage `\
-`
-npm i @react-navigation/bottom-tabs `\
+`npm i @react-navigation/bottom-tabs `\
 `npm i @react-navigation/native `\
 `npm i @react-navigation/native-stack `\
 `npm i react `\
