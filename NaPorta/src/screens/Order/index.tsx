@@ -1,7 +1,16 @@
-import React, { useState } from 'react';
-import { Platform } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Platform, Alert } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+
+import { useAuth } from '@hooks/auth';
+
+import { PIZZA_TYPES } from '@utils/pizzaTypes';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
+import { ButtonBack } from '@components/ButtonBack';
+import { RadioButton } from '@components/RadioButton';
+import { ProductProps } from '@src/components/ProductCard';
+import { OrderNavigationProps } from '@src/@types/navigation';
 import {
   Container,
   ContentScroll,
@@ -15,20 +24,21 @@ import {
   FormRow,
   Price,
 } from './styles';
-import { ButtonBack } from '@src/components/ButtonBack';
-import { RadioButton } from '@src/components/RadioButton';
-
-import { PIZZA_TYPES } from '@utils/pizzaTypes';
 
 export function Order() {
   const [size, setSize] = useState('');
+  const navigation = useNavigation();
+
+  function handleGoBack() {
+    navigation.goBack();
+  }
 
   return (
     <ContentScroll>
       <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <Header>
           <ButtonBack
-            onPress={() => {}}
+            onPress={handleGoBack}
             style={{ marginBottom: 108 }}
           ></ButtonBack>
         </Header>
