@@ -6,16 +6,16 @@ export const Container = styled.KeyboardAvoidingView`
   flex: 1;
 `;
 
-export const Header = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.COLORS.GRADIENT,
-}))`
-  padding: ${getStatusBarHeight() + 34}px 24px 0;
-`;
-
 export const ContentScroll = styled.ScrollView.attrs({
   showsVerticalScrollIndicator: false,
 })`
   background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+`;
+
+export const Header = styled(LinearGradient).attrs(({ theme }) => ({
+  colors: theme.COLORS.GRADIENT
+}))`
+  padding: ${getStatusBarHeight() + 34}px 24px 0;
 `;
 
 export const Photo = styled.Image`
@@ -31,7 +31,7 @@ export const Sizes = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 40px;  
 `;
 
 export const Form = styled.View`
@@ -81,3 +81,4 @@ export const Price = styled.Text`
     color: ${theme.COLORS.SECONDARY_900};
   `};
 `;
+

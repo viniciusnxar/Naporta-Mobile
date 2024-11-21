@@ -18,7 +18,7 @@ export const Title = styled.Text<TitleProps>`
 
   ${({ theme, color }) => css`
     font-family: ${theme.FONTS.TITLE};
-    color: ${color};
+    color: ${color};    
   `};
 `;
 
@@ -30,18 +30,14 @@ export const Notification = styled.View<NotificationProps>`
   padding: 0 12px;
   margin-left: 8px;
 
-  ${({ noNotifications, theme }) =>
-    !noNotifications &&
-    css`
-      background-color: ${theme.COLORS.SUCCESS_900};
-    `};
+  ${({ noNotifications, theme }) => !noNotifications && css`
+    background-color: ${theme.COLORS.SUCCESS_900};
+  `};
 
-  ${({ noNotifications, theme }) =>
-    noNotifications &&
-    css`
-      background-color: transparent;
-      border: 1px solid ${theme.COLORS.SHAPE};
-    `};
+  ${({ noNotifications, theme }) => noNotifications && css`
+    background-color: transparent;
+    border: 1px solid ${theme.COLORS.SHAPE};
+  `};
 `;
 
 export const Quantity = styled.Text<NotificationProps>`

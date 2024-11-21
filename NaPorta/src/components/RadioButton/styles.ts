@@ -2,20 +2,17 @@ import styled, { css } from 'styled-components/native';
 
 export type RadioButtonProps = {
   selected: boolean;
-};
+}
 
 export const Container = styled.TouchableOpacity<RadioButtonProps>`
   width: 104px;
   height: 82px;
   border-radius: 8px;
   padding: 14px 16px;
-
+  
   ${({ theme, selected }) => css`
-    border: 1px solid
-      ${selected ? theme.COLORS.SUCCESS_900 : theme.COLORS.SHAPE};
-    background-color: ${selected
-      ? theme.COLORS.SUCCESS_50
-      : theme.COLORS.TITLE};
+    border: 1px solid ${selected ? theme.COLORS.SUCCESS_900 : theme.COLORS.SHAPE};
+    background-color: ${selected ? theme.COLORS.SUCCESS_50 : theme.COLORS.TITLE};
   `};
 `;
 

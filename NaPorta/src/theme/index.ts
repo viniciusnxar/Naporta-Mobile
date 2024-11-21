@@ -16,12 +16,14 @@ export default {
 
     ALERT_900: '#B27F00',
     ALERT_800: '#C5941A',
-    ALERT_50: '#F3EF5',
+    ALERT_50: '#F3EFE5',
 
     SHAPE: '#DCDCDC',
     TITLE: '#FFF',
+
     GRADIENT: ['#B83341', '#E03F50'],
   },
+
   FONTS: {
     TITLE: 'Roboto_400Regular',
     TEXT: 'Roboto_400Regular',
