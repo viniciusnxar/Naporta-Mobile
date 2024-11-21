@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { useAuth } from '@hooks/auth';
@@ -16,17 +16,19 @@ export function UserStackRoutes() {
 
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      {user?.isAdmin ? (
-        <Group>
-          <Screen name='home' component={Home} />
-          <Screen name='product' component={Product} />
-        </Group>
-      ) : (
-        <Group>
-          <Screen name='UserTabRoutes' component={UserTabRoutes} />
-          <Screen name='order' component={Order} />
-        </Group>
-      )}
+      {
+        user?.isAdmin ? (
+          <Group>
+            <Screen name="home" component={Home} />
+            <Screen name="product" component={Product} />
+          </Group>
+        ) : (
+          <Group>
+            <Screen name="UserTabRoutes" component={UserTabRoutes} />
+            <Screen name="order" component={Order} />
+          </Group>
+        )
+      }
     </Navigator>
   );
 }

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 
 import { useAuth } from '@hooks/auth';
-import { SignIn } from '@src/screens/SignIN';
+import { SignIn } from '@screens/SignIn';
 import { UserStackRoutes } from './user.stack.routes';
 
 export function Routes() {

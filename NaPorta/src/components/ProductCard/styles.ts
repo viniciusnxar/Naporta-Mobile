@@ -26,9 +26,9 @@ export const Name = styled.Text`
   font-size: 20px;
 
   ${({ theme }) => css`
-    font-family: ${theme.FONTS.TITLE};
+    font-family: ${theme.FONTS.TITLE}; 
     color: ${theme.COLORS.SECONDARY_900};
-  `}
+  `};
 `;
 
 export const Identification = styled.View`
@@ -36,16 +36,15 @@ export const Identification = styled.View`
   align-items: center;
 `;
 
-
 export const Description = styled.Text`
   font-size: 12px;
   line-height: 20px;
   margin-right: 21px;
 
   ${({ theme }) => css`
-    font-family: ${theme.FONTS.TEXT};
+    font-family: ${theme.FONTS.TEXT}; 
     color: ${theme.COLORS.SECONDARY_400};
-  `}
+  `};
 `;
 
 export const Line = styled.View`
@@ -53,8 +52,6 @@ export const Line = styled.View`
   width: 100%;
   margin: 12px 0;
   margin-left: 124px;
+
   background-color: ${({ theme }) => theme.COLORS.SHAPE};
 `;
-
-
- 

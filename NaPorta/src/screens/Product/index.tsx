@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+
 import {
   Platform,
   TouchableOpacity,
@@ -12,14 +13,17 @@ import {
   useNavigation,
   useFocusEffect,
 } from '@react-navigation/native';
+import { initializeApp } from 'firebase/app';
 import {
   ref,
+  getStorage,
   uploadBytes,
   getDownloadURL,
   deleteObject,
 } from 'firebase/storage';
 import {
   doc,
+  getFirestore,
   setDoc,
   addDoc,
   collection,
@@ -27,14 +31,35 @@ import {
   deleteDoc,
 } from 'firebase/firestore';
 
-import { firestore, storage } from '@src/firebaseConfig';
+// Carregar as variáveis de ambiente usando o Expo Constants
+const firebaseConfig = {
+  apiKey: 'AIzaSyD5qKn3JhjYSzglvBjHDM8qylTwV9Gmnhs',
+
+  authDomain: 'naportamobile-5ab92.firebaseapp.com',
+
+  projectId: 'naportamobile-5ab92',
+
+  storageBucket: 'naportamobile-5ab92.appspot.com',
+
+  messagingSenderId: '55889757096',
+
+  appId: '1:55889757096:web:27b4e22c9be5e82334539d',
+
+  measurementId: 'G-SJQWMZNQ55',
+};
+
+// Inicialize o Firebase
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
+const storage = getStorage(app);
+
 import { ProductNavigationProps } from '@src/@types/navigation';
 
 import { ButtonBack } from '@components/ButtonBack';
 import { Button } from '@components/Button';
 import { Input } from '@components/Input';
 import { Photo } from '@components/Photo';
-import { InputPrice } from '@src/components/inputPrice';
+import { InputPrice } from '@src/components//InputPrice';
 
 import { ProductProps } from '@src/components/ProductCard';
 
@@ -62,7 +87,7 @@ type PizzaResponse = ProductProps & {
 };
 
 export function Product() {
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [priceSizeP, setPriceSizeP] = useState('');
@@ -74,25 +99,30 @@ export function Product() {
   const navigation = useNavigation();
 
   const route = useRoute();
-  const { id } = (route.params as ProductNavigationProps) || {}; // Verifica se id está disponível
-  if (!id) {
-    // Tratar o caso de id indefinido, por exemplo, mostrar um aviso ou redirecionar
-    console.warn('ID não foi fornecido na navegação.');
-    return null;
-  }
+  const { id } = route.params as ProductNavigationProps;
 
   async function handlePickerImage() {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    try {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if (status === 'granted') {
+      if (status !== 'granted') {
+        alert('É necessário permitir o acesso à biblioteca de mídia.');
+        return;
+      }
+
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
         aspect: [4, 4],
+        quality: 1,
       });
 
-      if (!result.canceled) {
-        setImage(result.uri);
+      if (!result.canceled && result.assets.length > 0) {
+        setImage(result.assets[0].uri);
       }
+    } catch (error) {
+      console.error('Erro ao selecionar imagem:', error);
     }
   }
 

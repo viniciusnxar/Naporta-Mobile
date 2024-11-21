@@ -18,7 +18,7 @@ export type OrderProps = {
   status: StatusTypesProps;
   table_number: string;
   quantity: string;
-}
+};
 
 type Props = TouchableOpacityProps & {
   index: number;
@@ -30,9 +30,11 @@ export function OrderCard({ index, data, ...rest }: Props) {
     <Container index={index} {...rest}>
       <Image source={{ uri: data.image }} />
 
-      <Name>4 Queijos</Name>
+      <Name>{data.pizza}</Name>
 
-      <Description>Mesa {data.table_number} - Qnt: {data.quantity}</Description>
+      <Description>
+        Mesa {data.table_number} - Qnt: {data.quantity}
+      </Description>
 
       <StatusContainer status={data.status}>
         <StatusLabel status={data.status}>{data.status}</StatusLabel>

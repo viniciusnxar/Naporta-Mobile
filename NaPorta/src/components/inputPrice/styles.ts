@@ -22,7 +22,7 @@ export const Size = styled.View`
 `;
 
 export const Label = styled.Text`
-  font-size: 14px;
+  font-size:14px;
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};

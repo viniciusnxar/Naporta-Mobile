@@ -4,12 +4,12 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import { Button } from '@components/Button';
 
 export const Container = styled.KeyboardAvoidingView`
-  flex: 1;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
+ flex: 1;
+ background-color: ${({ theme }) => theme.COLORS.BACKGROUND};
 `;
 
 export const Header = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.COLORS.GRADIENT,
+  colors: theme.COLORS.GRADIENT
 }))`
   width: 100%;
   flex-direction: row;
@@ -62,7 +62,7 @@ export const Label = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
-  `};
+  `}; 
 `;
 
 export const InputGroup = styled.View`

@@ -12,26 +12,28 @@ import {
 } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyD5qKn3JhjYSzglvBjHDM8qylTwV9Gmnhs',
 
-  authDomain: 'naportamobile-5ab92.firebaseapp.com',
+  apiKey: "AIzaSyD5qKn3JhjYSzglvBjHDM8qylTwV9Gmnhs",
 
-  projectId: 'naportamobile-5ab92',
+  authDomain: "naportamobile-5ab92.firebaseapp.com",
 
-  storageBucket: 'naportamobile-5ab92.appspot.com',
+  projectId: "naportamobile-5ab92",
 
-  messagingSenderId: '55889757096',
+  storageBucket: "naportamobile-5ab92.appspot.com",
 
-  appId: '1:55889757096:web:27b4e22c9be5e82334539d',
+  messagingSenderId: "55889757096",
 
-  measurementId: 'G-SJQWMZNQ55',
+  appId: "1:55889757096:web:27b4e22c9be5e82334539d",
+
+  measurementId: "G-SJQWMZNQ55"
+
 };
+
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
 
 import { useAuth } from '@hooks/auth';
-
 import { PIZZA_TYPES } from '@utils/pizzaTypes';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
@@ -68,7 +70,6 @@ export function Order() {
   const [sendingOrder, setSendingOrder] = useState(false);
 
   const { user } = useAuth();
-
   const navigation = useNavigation();
   const route = useRoute();
   const { id } = route.params as OrderNavigationProps;
@@ -79,7 +80,7 @@ export function Order() {
     navigation.goBack();
   }
 
-  function handleOrder() {
+  async function handleOrder() {
     if (!size) {
       return Alert.alert('Pedido', 'Selecione o tamanho da pizza.');
     }
@@ -89,10 +90,11 @@ export function Order() {
     if (!quantity) {
       return Alert.alert('Pedido', 'Informe a quantidade.');
     }
+
     setSendingOrder(true);
-    firestore()
-      .collection('orders')
-      .add({
+
+    try {
+      await addDoc(collection(firestore, 'orders'), {
         quantity,
         amount,
         pizza: pizza.name,
@@ -100,13 +102,13 @@ export function Order() {
         table_number: tableNumber,
         status: 'Preparando',
         waiter_id: user?.id,
-        image: pizza.photo_url
-      })
-      .then(() => navigation.navigate('home'))
-      .catch(() => {
-        Alert.alert('Pedido', 'Não foi possível realizar o pedido.');
-        setSendingOrder(false);
+        image: pizza.photo_url,
       });
+      navigation.navigate('home');
+    } catch {
+      Alert.alert('Pedido', 'Não foi possível realizar o pedido.');
+      setSendingOrder(false);
+    }
   }
 
   useEffect(() => {
@@ -124,43 +126,53 @@ export function Order() {
   }, [id]);
 
   return (
-    <ContentScroll>
-      <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ContentScroll>
         <Header>
-          <ButtonBack
-            onPress={handleGoBack}
-            style={{ marginBottom: 108 }}
-          ></ButtonBack>
+          <ButtonBack onPress={handleGoBack} style={{ marginBottom: 108 }} />
         </Header>
-        <Photo source={{ uri: 'https://github.com/viniciusnxar' }}></Photo>
-        <Sizes>
-          {PIZZA_TYPES.map((item) => (
-            <RadioButton
-              key={item.id}
-              title={item.name}
-              onPress={() => setSize(item.id)}
-              selected={size === item.id}
-            />
-          ))}
-        </Sizes>
-        <FormRow>
-          <InputGroup>
-            <Label>Número da mesa</Label>
-            <Input keyboardType="numeric" onChangeText={setTableNumber} />
-          </InputGroup>
 
-          <InputGroup>
-            <Label>Quantidade</Label>
-            <Input keyboardType="numeric" onChangeText={(value) => setQuantity(Number(value))} />
-          </InputGroup>
-        </FormRow>
-        <Price>Valor de R$ {amount}</Price>
-        <Button
-            title="Confirmar pedido"
+        <Photo source={{ uri: pizza.photo_url }} />
+
+        <Form>
+          <Title>{pizza.name}</Title>
+          <Label>Selecione um tamanho</Label>
+
+          <Sizes>
+            {PIZZA_TYPES.map((item) => (
+              <RadioButton
+                key={item.id}
+                title={item.name}
+                onPress={() => setSize(item.id)}
+                selected={size === item.id}
+              />
+            ))}
+          </Sizes>
+
+          <FormRow>
+            <InputGroup>
+              <Label>Número da mesa</Label>
+              <Input keyboardType='numeric' onChangeText={setTableNumber} />
+            </InputGroup>
+
+            <InputGroup>
+              <Label>Quantidade</Label>
+              <Input
+                keyboardType='numeric'
+                onChangeText={(value) => setQuantity(Number(value))}
+              />
+            </InputGroup>
+          </FormRow>
+
+          <Price>Valor de R$ {amount}</Price>
+
+          <Button
+            title='Confirmar pedido'
             onPress={handleOrder}
             isLoading={sendingOrder}
           />
-      </Container>
-    </ContentScroll>
+        </Form>
+      </ContentScroll>
+    </Container>
   );
 }
