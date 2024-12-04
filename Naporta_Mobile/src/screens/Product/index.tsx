@@ -175,6 +175,84 @@ export function Product() {
       });
   }
 
+  async function handleUpdate() {
+    if (!id) {
+      return Alert.alert('Erro', 'ID da pizza não foi encontrado.');
+    }
+
+    if (!name.trim()) {
+      return Alert.alert('Atualização', 'Informe o nome da pizza.');
+    }
+
+    if (!description.trim()) {
+      return Alert.alert('Atualização', 'Informe a descrição da pizza.');
+    }
+
+    if (!priceSizeP || !priceSizeM || !priceSizeG) {
+      return Alert.alert(
+        'Atualização',
+        'Informe o preço de todos os tamanhos da pizza.'
+      );
+    }
+
+    try {
+      setIsLoading(true);
+
+      let photo_url = image;
+      let updatedPhotoPath = photoPath;
+
+      // Verifica se a imagem foi alterada
+      if (image !== photo_url) {
+        const fileName = new Date().getTime();
+        const storageRef = ref(storage, `/pizzas/${fileName}.png`);
+
+        if (!image) {
+          throw new Error('A imagem é inválida ou não foi carregada.');
+        }
+
+        const imgBlob = await fetch(image).then((res) => res.blob());
+        await uploadBytes(storageRef, imgBlob);
+
+        // Obtém a URL da nova imagem e atualiza o caminho
+        photo_url = await getDownloadURL(storageRef);
+        updatedPhotoPath = storageRef.fullPath;
+
+        // Deleta a imagem antiga
+        const oldImageRef = ref(storage, photoPath);
+        await deleteObject(oldImageRef).catch((error) =>
+          console.warn('Erro ao deletar a imagem antiga:', error)
+        );
+      }
+
+      // Atualiza o documento no Firestore
+      const docRef = doc(firestore, 'pizzas', id);
+      await setDoc(
+        docRef,
+        {
+          name,
+          name_insensitive: name.toLowerCase().trim(),
+          description,
+          prices_sizes: {
+            p: priceSizeP,
+            m: priceSizeM,
+            g: priceSizeG,
+          },
+          photo_url,
+          photo_path: updatedPhotoPath,
+        },
+        { merge: true } // Atualiza apenas os campos especificados
+      );
+
+      Alert.alert('Atualização', 'Pizza atualizada com sucesso!');
+      navigation.navigate('home');
+    } catch (error) {
+      console.error('Erro ao atualizar a pizza:', error);
+      Alert.alert('Erro', 'Não foi possível atualizar a pizza.');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   function handleGoBack() {
     navigation.goBack();
   }
@@ -274,7 +352,13 @@ export function Product() {
             />
           </InputGroup>
 
-          {!id && (
+          {id ? (
+            <Button
+              title='Atualizar pizza'
+              isLoading={isLoading}
+              onPress={handleUpdate}
+            />
+          ) : (
             <Button
               title='Cadastrar pizza'
               isLoading={isLoading}
